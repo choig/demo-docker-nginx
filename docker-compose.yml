@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+    web:
+        image: nginx
+        volumes:
+            - ./www:/www
+            - ./nginx.conf:/etc/nginx/nginx.conf:ro
+            - ./certs:/etc/nginx/certs
+        ports:
+            - 8443:443
+            - 8080:80
+            - 9000:9000
+    jenkins:
+        image: jenkins
