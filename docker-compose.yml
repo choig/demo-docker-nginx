@@ -13,3 +13,20 @@ services:
             - 9000:9000
     jenkins:
         image: jenkins
+    docker-cmds:
+        image: docker:18.04.0-ce
+        entrypoint:
+            - docker
+            - run
+            - -p
+            - 80:80
+            - httpd:latest
+        environment:
+            - DOCKER_HOST=tcp://dind:2375
+        depends_on:
+            - dind
+    dind:
+        image: docker:18.04.0-ce-dind
+        volumes:
+            - ./vols-rw:/var/lib/docker
+        privileged: true
